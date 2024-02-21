@@ -24,21 +24,26 @@ void loop(){
     delay(50);
     char testing = Serial.read();
     msg += testing;
-    Serial.println(msg);
   }
 
   if(msg.length() > 0){
     
+    Serial.println(msg);
 
-    if(msg == "GAGO"){
+    if(msg.indexOf("GAGO") == 0){
       digitalWrite(longSig,HIGH);
+      delay(3000);
       Serial.println("TAMA");
-    }else{
-      digitalWrite(longSig,LOW);
+    }else if(msg.indexOf("POTA") == 0){
+      digitalWrite(shortSig,HIGH);
+      delay(3000);
       Serial.println("MALI");
     }
 
     msg = "";
+  }else{
+    digitalWrite(longSig,LOW);
+    digitalWrite(shortSig,LOW);
   }
 
   
